@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>clickomg</title>
+        <style>
+            div{
+                margin:50px;
+                background-color: black;
+            }
+            body{
+                background-color: gray;
+                text-align: center;
+            }
+            #img{
+            border:10px black solid  ;
+            cursor: pointer;
+            background-position: absolute;
+            width: 20%;
+            
+            }
+           p{
+            color:white;
+            font-size: 100px;
+            font-family: cursive;
+           }
+        </style>
+    </head>
+<body>
+    <div>    
+        <p id = "score">score: nil</p>
+    <img id = "img" onclick = "change()"  src = "https://i.natgeofe.com/n/4f5aaece-3300-41a4-b2a8-ed2708a0a27c/domestic-dog_thumb_square.jpg">
+    </div>
+
+    
+</body>
+</html>
+
+<script>
+    var value = 0
+    score = document.getElementById("score")
+    imghello = document.getElementById("img")
+    score.innerHTML = "score: " + value
+    function change(){
+        value += 1
+        imghello.style.width = value + "%"
+        console.log(value)
+        if (value >= 100){
+
+            score.innerHTML = "(killing it!) score: " + value;
+
+        }else{
+
+            score.innerHTML = "score: " + value;
+           
+        }
+        
+    }
+    
+</script>
