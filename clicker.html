@@ -8,28 +8,42 @@
                 background-color: black;
             }
             body{
+                user-select: none;
                 background-color: gray;
                 text-align: center;
             }
             #img{
             border:10px black solid  ;
             cursor: pointer;
-            background-position: absolute;
-            width: 20%;
-            
-            }
+            width: 25%;
+            align-self: center;
+        }
            p{
             color:white;
             font-size: 100px;
-            font-family: cursive;
+            font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+           }
+           h2{
+            color:yellow;
+            font-size: 50px;
+            font-family:'Courier New', Courier, monospace;
+           }
+           button{
+            
+            width: 50%;
+            height: 100px;
+            font-size: 75%;
+            font-family: Georgia, 'Times New Roman', Times, serif;
            }
         </style>
     </head>
 <body>
     <div>    
         <p id = "score">score: nil</p>
-    <img id = "img" onclick = "change()"  src = "https://i.natgeofe.com/n/4f5aaece-3300-41a4-b2a8-ed2708a0a27c/domestic-dog_thumb_square.jpg">
-    </div>
+        <h2 id = "money">money: nil</h2>
+    <img id = "img" onmouseover = "hovered('in')" onmouseout = "hovered('out')"src = "https://i.natgeofe.com/n/4f5aaece-3300-41a4-b2a8-ed2708a0a27c/domestic-dog_thumb_square.jpg">
+   <p> <button id="Upgrade">Upgrade (nil$)</button> </p>
+</div>
 
     
 </body>
@@ -37,23 +51,58 @@
 
 <script>
     var value = 0
+    var money = 0
+    var modifier = 1
+    var price = 20
+    moene = document.getElementById("money")
     score = document.getElementById("score")
+    Upgradebutton = document.getElementById("Upgrade")
     imghello = document.getElementById("img")
     score.innerHTML = "score: " + value
+    moene.innerHTML = "Money: " + value;
+    Upgradebutton.innerHTML = "Upgrade (" + price + "$)"
+
     function change(){
-        value += 1
-        imghello.style.width = value + "%"
+        value += 1;
+        money += modifier;
         console.log(value)
+        moene.innerHTML = "Money: " + money;
         if (value >= 100){
 
             score.innerHTML = "(killing it!) score: " + value;
+            score.style.color = "hsl("+(Math.random()*255)+",100%,50%)"
+            console.log("hsl("+(Math.random()*255)+",100%,50%)")
 
         }else{
 
             score.innerHTML = "score: " + value;
            
         }
-        
+        if (money >= price){
+            imghello.style.filter = "brightness(150%)"
+        }else{
+             imghello.style.filter = "brightness(100%)"
+        }
     }
-    
+    function buy(){
+        if (money >= price){
+            modifier += 1
+            money -= price
+            moene.innerHTML = "Money: " + money;
+            price = (price * modifier)
+            Upgradebutton.innerHTML = "Upgrade (" + price + "$)"
+            imghello.style.filter = "brightness(100%)"
+        }
+    }
+    function hovered(result){
+        if (result === "out"){
+            imghello.style.width = "25%";
+        }else if (result === "in"){
+            imghello.style.width = "26%";
+        }
+    }
+
+    imghello.addEventListener("click",change)
+  //  imghello.addEventListener("mouseover",hovered)
+    Upgradebutton.addEventListener("click",buy)
 </script>

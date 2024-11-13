@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>clickomg</title>
+        <style>
+            div{
+                align-self:center;
+                background-color: black;
+                width: 100%;
+              
+            }
+            body{
+                background-color: gray;
+                text-align: center;
+            }
+            #img{
+            border:10px black solid  ;
+            cursor: pointer;
+            
+            width: 25%;
+            align-self: center;
+        }
+   
+        #k{
+            color:white;
+            font-size: 100px;
+            user-select: none;
+        }
+          
+        </style>
+    </head>
+<body>
+    <div>    
+       
+    <img id = "img" src = "https://media.istockphoto.com/id/157421701/photo/kitty-bath-time.jpg?s=612x612&w=0&k=20&c=hqFJ1-ZCpDVJ3nvqMChLjcepRguf-qK8cQO2bEIxDJA=">
+    <p id = "k">aaaaaaa</p>
+</div>
+
+    
+</body>
+</html>
+
+<script>
+    
+
+    
+    imghello = document.getElementById("img");
+    ek = document.getElementById("k");
+
+    function catmessage(){
+        alert("cat");
+    }
+
+    function newmessge(){
+       
+        ek.style.color = "hsl("+(Math.random()*255)+",100%,50%)"
+        console.log("hsl("+(Math.random()*255)+",100%,50%)")
+    }
+
+    imghello.addEventListener("click",catmessage)
+    ek.addEventListener("click",newmessge)
+
+</script>

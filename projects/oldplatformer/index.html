@@ -50,12 +50,12 @@
         var playerY = 0
         var playerSpeedX = 0
         var playerSpeedY = 0
-        var cooldown = false
+        var cooldownTimestamp = 0
         var playerHeight
         var playerWidth
         var hitDx
         var hitDy
-        var hp = 1000 // hitpoints jah
+        var hp = 3 // hitpoints jah
         var HitBoxWidth = 50 * playerScale
         var hitBoxHeight = 105 * playerScale
         var playerOnGround = false
@@ -68,7 +68,7 @@
         var downPress = false
         var rightPress = false
         var spacePress = false
-        
+
         //player Animation variables
         var animationTypes = {
             duck: "duck",
@@ -151,7 +151,8 @@
                 document.addEventListener("keyup", keyuppress, false)
                 firstTimeSetup = false
                 //start game
-                setInterval(main, 1000 / frameRate)
+                window.requestAnimationFrame(main)
+                // setInterval(main, 1000 / frameRate)
             }
             //create walls
             //don't  change these. or do, I'm a comment not a cop
@@ -170,7 +171,7 @@
             createPlatform(400, 600, 100, 10)
             createPlatform(650, 450, 100, 50)
             createPlatform(700, 450, 50, 1000)
-            createPlatform(1000, 600, 100,25)
+            createPlatform(1000, 600, 100, 25)
             createPlatform(1100, 450, 75, 1000)
             createPlatform(1000, 600, 30, 1000)
             //create cannons
@@ -180,7 +181,7 @@
             createCannon("right", 450, 2000)
             createCannon("top", 450, 2000)
             createCannon("bottom", 450, 2000)
-            hptxt.innerHTML = "health: " + hp 
+            hptxt.innerHTML = "health: " + hp
             //create collectables
             //createCollectable("www.pictureOfFish.jpg",59,299)
             createCollectable("data:image/jpeg;base64,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", 630, 100)
@@ -197,9 +198,10 @@
 
         }
 
-        function main() {
-            ctx.clearRect(0, 0, 1400, 750) //erase the screen so you can draw everything in it's most current position. Get rid of this line to see why we need it
 
+        function main(timestamp) {
+            ctx.clearRect(0, 0, 1400, 750) //erase the screen so you can draw everything in it's most current position. Get rid of this line to see why we need it
+            console.log(cooldownTimestamp <= timestamp)
 
             if (playerDeadAndDeathAnimationDone) {
                 deathOfPlayer()
@@ -211,20 +213,29 @@
             drawCannons()
             drawCollectables()
             playerFrictionAndGravity()
-        
+
             playerX = playerX + playerSpeedX
             playerY = playerY + playerSpeedY
+            hptxt.innerHTML = "health: " + hp
 
             collision()//checks if the player will collide with something in this frame
             keyboardControlActions() //keyboard controls. 
-            projectileCollision( hptxt.innerHTML = "health: " + hp) //checks if the player is getting hit by a projectile in the next frame
+
+            if(cooldownTimestamp <= timestamp){
+                 projectileCollision(timestamp) 
+            }else{                
+                ctx.fillRect(100, 100, 100, 100)
+            }
+             //checks if the player is getting hit by a projectile in the next frame
+
             collectablesCollide() //checks if player has touched a collectable
 
 
             animate() //this changes halle's picture to the next frame so it looks animated. 
             // debug()//debugging values. Comment this out when not debugging. 
             drawRobot() //this actually displays the image of the robot. 
-
+          
+            window.requestAnimationFrame(main)
             // quick note on the order of functions
             // You must have all functions in this general order
             // First you change the player x and y
@@ -422,10 +433,10 @@
 
         }
 
-        function projectileCollision() {
+        function projectileCollision(timestamp) {
             if (currentAnimationType === animationTypes.frontDeath) { //checking if the player is dead
                 //once you die we don't need you to die again, so we stop checking
-                return
+                return false
             }
 
             //this deletes any projectiles that go off the screen
@@ -461,25 +472,21 @@
                     if (projectileX[i] + projectileWidth > playerX) {
                         if (projectileY[i] < playerY + hitBoxHeight) {
                             if (projectileY[i] + projectileHeight > playerY) {
-                                if (hp <= 0 ){
-                                    currentAnimationType = animationTypes.frontDeath
-                                    frameIndex = 0
-                                }else{
-                            if (cooldown == false){
+                                cooldownTimestamp = timestamp + 1000
                                 hp -= 1
-                            
-                            }    
-                                
-                                    }
-
-                                
-                                
+                                if (hp <= 0) {
+                                     currentAnimationType = animationTypes.frontDeath
+                                     frameIndex = 0
+                                     hp = 0
+                                }
                             }
+                            return true //if you have hit the projectile return true
                         }
                     }
                 }
 
             }
+            return false
         }
 
         function deathOfPlayer() {
@@ -703,32 +710,32 @@
                 //playerSpeedY -= walkspeed
             }
             if (downPress) {
-              
+
             }
-            
+
             if (leftPress) {
-             
+
                 playerSpeedX -= walkAcceleration
                 playerFacingRight = false
-              
+
             }
             if (rightPress) {
-              
+
                 playerSpeedX += walkAcceleration
                 playerFacingRight = true
-                
+
             }
             if (spacePress) {
                 if (playerOnGround) { //this only lets you jump if you are on the ground
-                   
-                        playerSpeedY = playerSpeedY - playerJumpStrength
-                        jumpTimer = 19
-                        frameIndex = 4
-                        playerOnGround = false  
-                    
-                              
+
+                    playerSpeedY = playerSpeedY - playerJumpStrength
+                    jumpTimer = 19
+                    frameIndex = 4
+                    playerOnGround = false
+
+
+                }
             }
-        }
 
 
         }
@@ -750,7 +757,7 @@
             if (e.key === " ") {
                 spacePress = true
             }
-        
+
         }
 
         function keyuppress(e) { //keydown and keyup are both needed because both are important. think of a gas pedal: you want to car to know you pressed down the pedal, and you REALLY want it to know when you let up on the gas. 
