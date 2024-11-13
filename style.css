@@ -1,6 +1,6 @@
 body {
     background: #2a2a2a;
-    color: #ddd;
+    color: #ff0000;
     padding: 10px;
     font-family: Arial, sans-serif;
 }
@@ -42,7 +42,17 @@ h1 {
 a {
     text-decoration: none;
     color: #ffa500;
+}
 
+/* interests section styles */
+#interests {
+    border: 4px silver ridge;
+    padding: 8px;
+    margin-top: 20px;
+}
+
+h2, h3 {
+    margin: 0px;
 }
 
 /* main container area beneath menu */
@@ -66,13 +76,30 @@ main {
     padding: 15px;
 }
 
-/* interests section styles */
-#interests {
-    border: 4px silver ridge;
-    padding: 8px;
-    margin-top: 20px;
-}
 
-h2, h3 {
-    margin: 0px;
-}
+
+/* Portfolio styles */
+.content h1 {
+    color: black;
+  }
+  
+  #portfolio {
+    list-style-type: none;
+    padding-left: 0;
+  }
+  
+  #portfolio li {
+    background: #fff;
+    padding: 10px;
+    border-radius: 10px;
+    margin-bottom: 10px;
+  }
+  
+  #portfolio li:hover {
+    background: #eee;
+  }
+  
+  #portfolio a {
+    text-decoration: none;
+    color: #454545;
+  }
